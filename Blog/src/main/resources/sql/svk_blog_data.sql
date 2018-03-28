@@ -1,9 +1,10 @@
-create user springuser identified  by 'password01';
-grant all privileges on *.* to springuser;
-select * from mysql.user where mysql.user.User='springuser';
-update mysql.user  set Host='localhost' where User='springuser';
+--TODO this is a draft version of a script. need to be updated (like autoincrement fields, were needed)
+--create user springuser identified  by 'password01';
+--grant all privileges on *.* to springuser;
+--select * from mysql.user where mysql.user.User='springuser';
+--update mysql.user  set Host='localhost' where User='springuser';
 
-DROP DATABASE svk_blog_data;
+--DROP DATABASE svk_blog_data;
 CREATE DATABASE svk_blog_data;
 ------------
 CREATE TABLE `svk_blog_data`.`POST` (

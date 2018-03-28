@@ -21,6 +21,9 @@ public class UserContoller {
 	@GetMapping("/")
 	public String showPage(Model model, @RequestParam(defaultValue = "0") int page) {
 		model.addAttribute("data", userRepo.findAll(PageRequest.of(page, 4)));
+		model.addAttribute("currentPage", page);
+		// currentPage = page we clicked. This variable is used on the UI to highlight
+		// current page
 		return "index";
 	}
 
@@ -36,10 +39,10 @@ public class UserContoller {
 		return "redirect:/";
 	}
 
-	@GetMapping("/delete")
+	@GetMapping("/findOne")
 	@ResponseBody
 	public Optional<User> findOne(Integer id) {
-
 		return userRepo.findById(id);
+
 	}
 }

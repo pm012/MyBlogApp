@@ -8,20 +8,19 @@ import javax.persistence.Id;
 public class User {
 	@Id
 	@GeneratedValue
-	private Integer id;
+	private Integer user_id;
 	private String name;
 	private String lastName;
-	private String userName;
+	// private String userName;
 	private String email;
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", lastName=" + lastName + ", userName="
-				+ userName + "]";
+		return "User [id=" + user_id + ", name=" + name + ", email=" + email + ", lastName=" + lastName + "]";
 	}
 
 	public User() {
-		super();
+
 	}
 
 	public User(String name, String email, String lastName, String userName) {
@@ -29,7 +28,7 @@ public class User {
 		this.name = name;
 		this.email = email;
 		this.lastName = lastName;
-		this.userName = userName;
+		// this.userName = userName;
 	}
 
 	public String getEmail() {
@@ -48,20 +47,20 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public String getUserName() {
-		return userName;
-	}
+	/*
+	 * public String getUserName() { return userName; }
+	 */
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+	/*
+	 * public void setUserName(String userName) { this.userName = userName; }
+	 */
 
 	public Integer getId() {
-		return id;
+		return user_id;
 	}
 
 	public void setId(Integer id) {
-		this.id = id;
+		this.user_id = id;
 	}
 
 	public String getName() {

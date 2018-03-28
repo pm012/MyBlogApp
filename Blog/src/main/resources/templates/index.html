@@ -1,40 +1,94 @@
 <!DOCTYPE html>
-<html xmls:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet"
+	href="webjars/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" />
+<script type="text/javascript" src="webjars/jquery/2.2.3/jquery.min.js"></script>
 <script type="text/javascript"
-	src="webjars/jquery/3.1.0/jquery.min.js></script>
-<script type="
-	text/javascript" src="webjars/bootstrap//4.0.0-alpha.2/js/bootstrap.min.js></script>
-<link rel = "
-	stylesheet" href="webjars/bootstrap/4.0.0-alpha.2/css/bootstrap.min.cess" />
+	src="webjars/bootstrap//4.0.0-alpha.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" th:src="@{js/main.js}"
+	src="../static/js/main.js"></script>
 </head>
 <body>
 	<div class="container">
 		<div class="card">
 
 			<div class="card-block">
-				<table class="table table-hover"></table>
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>Name</th>
-						<th>Last Name</th>
-						<th>UserName</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="user :${data.content}">
-						<td th: text="${user.id}"></td>
-						<td th: text="${user.name}"></td>
-						<td th: text="${user.lastName}"></td>
-						<td th: text="${user.userName}"></td>
-						<td th: text="${user.email}"></td>
-					</tr>
-				</tbody>
-
-
-				</tr>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Last Name</th>
+							<th>User Email</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="user :${data.content}">
+							<td th:text="${user.id}"></td>
+							<td th:if="${user.name != null}" th:text="${user.name}">username</td>
+							<td th:if="${user.lastName != null}" th:text="${user.lastName}">userlastname</td>
+							<td th:if="${user.email != null}" th:text="${user.email}">email@host.com</td>
+							<td><a href="" class="btn btn-primary eBtn">Edit</a>
+						</tr>
+					</tbody>
+				</table>
+				<hr />
+				<ul class="nav nav-pills">
+					<li class="nav-item"
+						th:each="i : ${#numbers.sequence(0,data.totalPages-1)}"><a
+						th:href="@{/(page=${i})}" th:text="${i}" class="nav-link"
+						th:classappend="${currentPage}==${i}?'active':''"></a></li>
+				</ul>
 			</div>
+		</div>
+	</div>
+	<div class="myForm">
+		<form th:action="@{/save}" method="post">
+			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Update or Add</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+
+							<div class="form-group">
+								<label for="id" class="form-control-label">ID:</label> <input
+									type="text" class="form-control" id="id" name="id" value="" />
+							</div>
+							<div class="form-group">
+								<label for="name" class="form-control-label">Name:</label> <input
+									type="text" class="form-control" id="name" name="name" value="" />
+							</div>
+							<div class="form-group">
+								<label for="lastName" class="form-control-label">Last
+									Name:</label> <input type="text" class="form-control" id="lastName"
+									name="lastName" value="" />
+							</div>
+							<div class="form-group">
+								<label for="email" class="form-control-label">Email:</label> <input
+									type="text" class="form-control" id="email" name="email"
+									value="" />
+							</div>
+
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Close</button>
+							<input type="submit" class="btn btn-primary" value="save" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
 </body>
 </html>

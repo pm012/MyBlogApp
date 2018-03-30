@@ -29,7 +29,7 @@
 							<td  th:text="${user.name}">username</td>
 							<td  th:text="${user.lastName}">userlastname</td>
 							<td  th:text="${user.email}">email</td>
-							<td><a href="" class="btn btn-primary eBtn">Edit</a>
+							<td><a th:href="@{findOne/(id=${user.id})}" class="btn btn-primary eBtn">Edit</a>
 						</tr>
 					</tbody>
 				</table>

@@ -48,6 +48,8 @@ CREATE TABLE `svk_blog_data`.`USER` (
   `USERNAME` VARCHAR(255) NULL,
   PRIMARY KEY (`USER_ID`),
   UNIQUE INDEX `USER_ID_UNIQUE` (`USER_ID` ASC));
+ ----30.03
+ ALTER TABLE `svk_blog_data`.`user` CHANGE COLUMN `USER_ID` `USER_ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT  ;
 -----------------
 INSERT INTO svk_blog_data.ROLE (role_id, role)
 VALUES (1, 'ROLE_ADMIN');

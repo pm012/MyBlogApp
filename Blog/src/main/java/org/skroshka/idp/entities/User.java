@@ -12,26 +12,29 @@ public class User {
 	// autogeneration. These db use own sequence table to generate values
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer user_id;
-	private String name;
+	private Boolean active;
+	private String firstName;
 	private String lastName;
-	// private String userName;
+	private String nickName;
 	private String email;
 
 	@Override
 	public String toString() {
-		return "User [id=" + user_id + ", name=" + name + ", email=" + email + ", lastName=" + lastName + "]";
+		return "User [user_id=" + user_id + ", active=" + active + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", nickName=" + nickName + ", email=" + email + "]";
 	}
 
 	public User() {
 
 	}
 
-	public User(String name, String email, String lastName, String userName) {
+	public User(String firstName, String email, String lastName, String nickName, Boolean active) {
 
-		this.name = name;
+		this.firstName = firstName;
 		this.email = email;
 		this.lastName = lastName;
-		// this.userName = userName;
+		this.nickName = nickName;
+		this.active = active;
 	}
 
 	public String getEmail() {
@@ -42,6 +45,14 @@ public class User {
 		this.email = email;
 	}
 
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
 	public String getLastName() {
 		return lastName;
 	}
@@ -50,13 +61,13 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	/*
-	 * public String getUserName() { return userName; }
-	 */
+	public String getNickName() {
+		return nickName;
+	}
 
-	/*
-	 * public void setUserName(String userName) { this.userName = userName; }
-	 */
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
 
 	public Integer getId() {
 		return user_id;
@@ -66,12 +77,12 @@ public class User {
 		this.user_id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 }

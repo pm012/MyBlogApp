@@ -38,18 +38,27 @@ CREATE TABLE `svk_blog_data`.`USER_ROLE` (
   `USER_ID` INT NOT NULL,
   `ROLE_ID` INT NOT NULL);
 ----------------------------------------
-CREATE TABLE `svk_blog_data`.`USER` (
-  `USER_ID` INT UNSIGNED NOT NULL,
-  `ACTIVE` INT NULL,
-  `EMAIL` VARCHAR(255) NULL,
-  `LAST_NAME` VARCHAR(255) NULL,
-  `NAME` VARCHAR(255) NULL,
-  `PASSWORD` VARCHAR(255) NULL,
-  `USERNAME` VARCHAR(255) NULL,
-  PRIMARY KEY (`USER_ID`),
-  UNIQUE INDEX `USER_ID_UNIQUE` (`USER_ID` ASC));
- ----30.03
- ALTER TABLE `svk_blog_data`.`user` CHANGE COLUMN `USER_ID` `USER_ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT  ;
+CREATE  TABLE `svk_blog_data`.`user` (
+  `user_id` INT NOT NULL AUTO_INCREMENT ,
+
+  `password` VARCHAR(255) ,
+
+  `email` VARCHAR(255) NOT NULL ,
+
+  `nick_name` VARCHAR(255) NOT NULL ,
+
+  `first_name` VARCHAR(255) NOT NULL ,
+
+  `last_name` VARCHAR(255) NOT NULL ,
+  `active` INT DEFAULT 1,
+
+  PRIMARY KEY (`user_id`) ,
+
+  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) ,
+
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) ,
+
+  UNIQUE INDEX `nickname_UNIQUE` (`nickname` ASC) );
 -----------------
 INSERT INTO svk_blog_data.ROLE (role_id, role)
 VALUES (1, 'ROLE_ADMIN');
@@ -57,15 +66,16 @@ INSERT INTO svk_blog_data.ROLE (role_id, role)
 VALUES (2, 'ROLE_USER');
 
 ---------
-INSERT INTO svk_blog_data.USER (user_id, password, email, username, name, last_name, active)
+INSERT INTO svk_blog_data.USER (user_id, password, email, nick_name, first_name, last_name, active)
 VALUES
   (1, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'user@mail.com', 'user', 'Name', 'Surname',
    1);
-INSERT INTO svk_blog_data.USER (user_id, password, email, username, name, last_name, active)
+INSERT INTO svk_blog_data.USER (user_id, password, email, nick_name, first_name, last_name, active)
 VALUES
   (2, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'kate.kroshka@gmail.com', 'kate', 'Kate', 'Kroshka', 1);
-INSERT INTO svk_blog_data.USER (user_id, password, email, username, name, last_name, active)
+INSERT INTO svk_blog_data.USER (user_id, password, email, nick_name, first_name, last_name, active)
 VALUES (3, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'svk@mail.com', 'Sergii', 'Sergii', 'Kroshka', 1);
+
 ---
 ALTER TABLE `svk_blog_data`.`POST` 
 CHANGE COLUMN `CREATE_DATE` `CREATE_DATE` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ;

@@ -20,9 +20,11 @@
 					<thead>
 						<tr>
 							<th>ID</th>
-							<th>Name</th>
+							<th>First Name</th>
 							<th>Last Name</th>
 							<th>User Email</th>
+							<th>Login</th>
+							<th>Is Active</th>
 							<th></th>
 							<th></th>
 						</tr>
@@ -30,9 +32,12 @@
 					<tbody>
 						<tr th:each="user :${data.content}">
 							<td th:text="${user.id}"></td>
-							<td th:text="${user.name}">username</td>
+							<td th:text="${user.firstName}">username</td>
 							<td th:text="${user.lastName}">userlastname</td>
 							<td th:text="${user.email}">email</td>
+							<td th:text="${user.nickName}">nickName</td>
+							<td th:text="${user.active}">active</td>
+
 							<td><a th:href="@{delete/(id=${user.id})}"
 								class="btn btn-danger delBtn">Delete</a>
 							<td><a th:href="@{findOne/(id=${user.id})}"
@@ -50,7 +55,7 @@
 			</div>
 		</div>
 		<!-- Save/Edit modal -->
-		<div class="myForm">
+		<div class="userAddEditForm">
 			<form th:action="@{/save}" method="post">
 				<div class="modal fade" id="exampleModal" tabindex="-1"
 					role="dialog" aria-labelledby="exampleModalLabel"
@@ -66,15 +71,19 @@
 								</button>
 							</div>
 							<div class="modal-body">
-
-								<div class="form-group">
+								<div hidden=true class="form-group">
 									<label for="id" class="form-control-label">ID:</label> <input
 										type="text" class="form-control" id="id" name="id" value="" />
 								</div>
 								<div class="form-group">
-									<label for="name" class="form-control-label">Name:</label> <input
-										type="text" class="form-control" id="name" name="name"
-										value="" />
+									<label for="nickName" class="form-control-label">Username:</label>
+									<input type="text" class="form-control" id="nickName"
+										name="nickName" value="" />
+								</div>
+								<div class="form-group">
+									<label for="fistName" class="form-control-label">First
+										Name:</label> <input type="text" class="form-control" id="firstName"
+										name="firstName" value="" />
 								</div>
 								<div class="form-group">
 									<label for="lastName" class="form-control-label">Last
@@ -85,6 +94,14 @@
 									<label for="email" class="form-control-label">Email:</label> <input
 										type="email" class="form-control form-control-sm" id="email"
 										name="email" value="" />
+								</div>
+								<div class="form-group">
+									<label for="active" class="form-control-label">Is Active:</label>
+									<select class="form-control" id="active" name="active">
+										<option value="true">true</option>
+										<option value="false">false</option>
+									</select>
+
 								</div>
 							</div>
 							<div class="modal-footer">
@@ -98,7 +115,7 @@
 			</form>
 		</div>
 		<!-- delete modal -->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		<div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
@@ -121,8 +138,6 @@
 				</div>
 			</div>
 		</div>
-
-
 	</div>
 </body>
 </html>

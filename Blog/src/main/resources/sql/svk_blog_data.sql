@@ -4,6 +4,8 @@
 --select * from mysql.user where mysql.user.User='springuser';
 --update mysql.user  set Host='localhost' where User='springuser';
 
+
+
 --DROP DATABASE svk_blog_data;
 CREATE DATABASE svk_blog_data;
 ------------

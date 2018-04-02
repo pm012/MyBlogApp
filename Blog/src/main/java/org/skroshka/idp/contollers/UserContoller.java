@@ -34,10 +34,11 @@ public class UserContoller {
 	 */
 
 	@GetMapping("/")
-	public Model homepage(Model modelAndView, @RequestParam("pageSize") Optional<Integer> pageSize,
-			@RequestParam("page") Optional<Integer> page) {
+	public String showPage(Model modal, @RequestParam("pageSize") Optional<Integer> pageSize,
+			@RequestParam(defaultValue = "1") Optional<Integer> page) {
 
 		// ModelAndView modelAndView = new ModelAndView("index");
+
 		//
 		// Evaluate page size. If requested parameter is null, return initial
 		// page size
@@ -48,25 +49,25 @@ public class UserContoller {
 		int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 		// print repo
 		System.out.println("here is client repo " + userRepo.findAll());
-		Page<User> userlist = userRepo.findAll(PageRequest.of(evalPage, evalPageSize));
-		System.out.println("client list get total pages" + userlist.getTotalPages() + "client list get number "
-				+ userlist.getNumber());
-		Pager pager = new Pager(userlist.getTotalPages(), userlist.getNumber(), BUTTONS_TO_SHOW);
+		Page<User> user = userRepo.findAll(PageRequest.of(evalPage, evalPageSize));
+		System.out.println(
+				"client list get total pages" + user.getTotalPages() + " client list get number " + user.getNumber());
+		Pager pager = new Pager(user.getTotalPages(), user.getNumber(), BUTTONS_TO_SHOW);
 		// add clientmodel
 		// modelAndView. addObject("clientlist", userlist);
-		modelAndView.addAttribute("data", userlist);
+		modal.addAttribute("data", user);
 		// evaluate page size
 		// modelAndView.addObject("selectedPageSize", evalPageSize);
-		modelAndView.addAttribute("selectedPageSize", evalPageSize);
+		modal.addAttribute("selectedPageSize", evalPageSize);
 		// add page sizes
 		// modelAndView.addObject("pageSizes", PAGE_SIZES);
-		modelAndView.addAttribute("selectedPageSize", evalPageSize);
+		modal.addAttribute("pageSizes", PAGE_SIZES);
 		// add pager
 		// modelAndView.addObject("pager", pager);
-		modelAndView.addAttribute("pager", pager);
+		modal.addAttribute("pager", pager);
 		// current page
-		modelAndView.addAttribute("currentPage", page);
-		return modelAndView;
+		modal.addAttribute("currentPage", page);
+		return "index";
 
 	}
 

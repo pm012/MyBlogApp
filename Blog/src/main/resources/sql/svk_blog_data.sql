@@ -60,7 +60,7 @@ CREATE  TABLE `svk_blog_data`.`user` (
 
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) ,
 
-  UNIQUE INDEX `nickname_UNIQUE` (`nickname` ASC) );
+  UNIQUE INDEX `nick_name_UNIQUE` (`nickname` ASC) );
 -----------------
 INSERT INTO svk_blog_data.ROLE (role_id, role)
 VALUES (1, 'ROLE_ADMIN');

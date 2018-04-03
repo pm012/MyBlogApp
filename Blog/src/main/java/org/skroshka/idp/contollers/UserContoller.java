@@ -24,22 +24,10 @@ public class UserContoller {
 	@Autowired
 	private UserRepository userRepo;
 
-	/*
-	 * @GetMapping("/") public String showPage(Model
-	 * model, @RequestParam(defaultValue = "0") int page) {
-	 * model.addAttribute("data", userRepo.findAll(PageRequest.of(page, 4)));
-	 * model.addAttribute("currentPage", page); // currentPage = page we clicked.
-	 * This variable is used on the UI to highlight // current page return "index";
-	 * }
-	 */
-
 	@GetMapping("/")
 	public String showPage(Model modal, @RequestParam("pageSize") Optional<Integer> pageSize,
-			@RequestParam(defaultValue = "1") Optional<Integer> page) {
+			@RequestParam(defaultValue = "0") Optional<Integer> page) {
 
-		// ModelAndView modelAndView = new ModelAndView("index");
-
-		//
 		// Evaluate page size. If requested parameter is null, return initial
 		// page size
 		int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
@@ -48,25 +36,18 @@ public class UserContoller {
 		// param. decreased by 1.
 		int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 		// print repo
-		System.out.println("here is client repo " + userRepo.findAll());
 		Page<User> user = userRepo.findAll(PageRequest.of(evalPage, evalPageSize));
-		System.out.println(
-				"client list get total pages" + user.getTotalPages() + " client list get number " + user.getNumber());
 		Pager pager = new Pager(user.getTotalPages(), user.getNumber(), BUTTONS_TO_SHOW);
 		// add clientmodel
-		// modelAndView. addObject("clientlist", userlist);
 		modal.addAttribute("data", user);
 		// evaluate page size
 		// modelAndView.addObject("selectedPageSize", evalPageSize);
 		modal.addAttribute("selectedPageSize", evalPageSize);
 		// add page sizes
-		// modelAndView.addObject("pageSizes", PAGE_SIZES);
 		modal.addAttribute("pageSizes", PAGE_SIZES);
 		// add pager
-		// modelAndView.addObject("pager", pager);
 		modal.addAttribute("pager", pager);
 		// current page
-		modal.addAttribute("currentPage", page);
 		return "index";
 
 	}

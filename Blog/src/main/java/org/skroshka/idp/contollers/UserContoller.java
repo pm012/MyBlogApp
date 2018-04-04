@@ -59,14 +59,14 @@ public class UserContoller {
 	}
 
 	@GetMapping("/delete")
-	public String deleteUser(Integer id) {
+	public String deleteUser(Long id) {
 		userRepo.deleteById(id);
 		return "redirect:/";
 	}
 
 	@GetMapping("/findOne")
 	@ResponseBody
-	public Optional<User> findOne(Integer id) {
+	public Optional<User> findOne(Long id) {
 		return userRepo.findById(id);
 
 	}

@@ -49,9 +49,9 @@ CREATE  TABLE `svk_blog_data`.`user` (
 
   `nick_name` VARCHAR(255) NOT NULL ,
 
-  `first_name` VARCHAR(255) NOT NULL ,
+  `first_name` VARCHAR(255) ,
 
-  `last_name` VARCHAR(255) NOT NULL ,
+  `last_name` VARCHAR(255) ,
   `active` INT DEFAULT 1,
 
   PRIMARY KEY (`user_id`) ,

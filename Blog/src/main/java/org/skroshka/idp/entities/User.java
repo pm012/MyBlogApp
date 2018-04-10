@@ -1,18 +1,27 @@
 package org.skroshka.idp.entities;
 
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-@Table(name = "USER")
+@Table(name = "USER", uniqueConstraints = { @UniqueConstraint(columnNames = { "user_id", "email" }) })
 public class User {
 
 	private Long user_id;
@@ -20,13 +29,14 @@ public class User {
 	private String firstName;
 	private String lastName;
 	@Length(min = 5, message = "*Your username must have at least 5 characters")
-	@NotEmpty(message = "*Please provide your name")
+	@NotEmpty(message = "*Please provide your username")
+
 	private String nickName;
 	@Email(message = "*Please provide a valid Email")
 	@NotEmpty(message = "*Please provide an email")
 	private String email;
 
-	// private Collection<Role> roles;
+	private Collection<Role> roles;
 
 	@Override
 	public String toString() {
@@ -75,6 +85,7 @@ public class User {
 	}
 
 	@Column(name = "nick_name", nullable = false, unique = true)
+	@Length(min = 5, message = "*Your nickname should be at least 5 characters!!!")
 	public String getNickName() {
 		return nickName;
 	}
@@ -106,14 +117,16 @@ public class User {
 		this.firstName = firstName;
 	}
 
-	/*
-	 * @ManyToMany(cascade = CascadeType.ALL)
-	 * 
-	 * @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
-	 * inverseJoinColumns = @JoinColumn(name = "role_id")) public Collection<Role>
-	 * getRoles() { return roles; }
-	 * 
-	 * public void setRoles(Collection<Role> roles) { this.roles = roles; }
-	 */
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JsonIgnore
+
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	public Collection<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Collection<Role> roles) {
+		this.roles = roles;
+	}
 
 }

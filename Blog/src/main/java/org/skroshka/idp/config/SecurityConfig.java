@@ -52,10 +52,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		 * accessDeniedHandler);
 		 */
 
-		http.csrf().requireCsrfProtectionMatcher(new AntPathRequestMatcher("**/login")).and().authorizeRequests()
+		http.csrf().requireCsrfProtectionMatcher(new AntPathRequestMatcher(" **/login")).and().authorizeRequests()
 				.antMatchers("/index").hasRole("USER").and().formLogin().defaultSuccessUrl("/index").loginPage("/login")
 				.and().logout().permitAll();
 
+		// http.authorizeRequests().antMatchers("/",
+		// "/index").permitAll().anyRequest().authenticated().and().formLogin()
+		// .loginPage("/login").permitAll().and().logout().permitAll();
 	}
 
 	// ----

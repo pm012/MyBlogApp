@@ -16,8 +16,6 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
-import org.hibernate.validator.constraints.Length;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -28,9 +26,9 @@ public class User {
 	private Boolean active;
 	private String firstName;
 	private String lastName;
-	@Length(min = 5, message = "*Your username must have at least 5 characters")
-	@NotEmpty(message = "*Please provide your username")
 
+	// @Length(min = 5, message = "*Your username must have at least 5 characters")
+	@NotEmpty(message = "Please provide your username")
 	private String nickName;
 	@Email(message = "*Please provide a valid Email")
 	@NotEmpty(message = "*Please provide an email")
@@ -84,8 +82,9 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	@Column(name = "nick_name", nullable = false, unique = true)
-	@Length(min = 5, message = "*Your nickname should be at least 5 characters!!!")
+	@Column(name = "nick_name"/* , nullable = false, unique = true */)
+	// @Length(min = 5, message = "*Your nickname should be at least 5
+	// characters!!!")
 	public String getNickName() {
 		return nickName;
 	}

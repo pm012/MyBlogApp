@@ -2,6 +2,8 @@ package org.skroshka.idp.contollers;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.skroshka.idp.entities.Pager;
 import org.skroshka.idp.entities.User;
 import org.skroshka.idp.repositories.UserRepository;
@@ -10,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,8 +56,13 @@ public class UserContoller {
 	}
 
 	@PostMapping("/save")
-	public String save(User u) {
-		userRepo.save(u);
+	public String save(@Valid User u, BindingResult bindingResult) {
+		try {
+			userRepo.save(u);
+		} catch (org.springframework.transaction.TransactionSystemException e) {
+			System.out.println(e.getMessage());
+			return "redirect:/save";
+		}
 		return "redirect:/";
 	}
 
